@@ -1,0 +1,17 @@
+current dev 66.92 {'arc': 51.41, 'hellaswag': 68.75, 'winogrande': 80.6}
+ -0.25 (-0.30/-0.20) {'arc': 51.41, 'hellaswag': 68.65, 'winogrande': 79.95}  [{"op": "temp", "s": 1.05}]
+ -0.38 (-0.52/-0.24) {'arc': 50.92, 'hellaswag': 68.75, 'winogrande': 79.95}  [{"op": "temp", "s": 1.1}]
+ -0.04 (-0.42/+0.34) {'arc': 51.34, 'hellaswag': 68.65, 'winogrande': 80.65}  [{"op": "head", "layer": 25, "head": 5, "s": 0}]
+ -0.14 (-0.27/-0.01) {'arc': 51.2, 'hellaswag': 68.7, 'winogrande': 80.45}  [{"op": "head", "layer": 27, "head": 11, "s": 0}]
+ -0.26 (-0.52/+0.00) {'arc': 51.13, 'hellaswag': 68.65, 'winogrande': 80.2}  [{"op": "head", "layer": 25, "head": 5, "s": 0}, {"op": "head", "layer": 27, "head": 11, "s": 0}]
+ +0.12 (-0.11/+0.35) {'arc': 51.48, 'hellaswag': 68.75, 'winogrande': 80.9}  [{"op": "head", "layer": 16, "head": 6, "s": 0}]
+ +0.05 (-0.35/+0.46) {'arc': 51.27, 'hellaswag': 69.0, 'winogrande': 80.65}  [{"op": "head", "layer": 21, "head": 2, "s": 0}]
+ +0.07 (-0.29/+0.43) {'arc': 51.27, 'hellaswag': 69.0, 'winogrande': 80.7}  [{"op": "head", "layer": 23, "head": 5, "s": 0}]
+ -0.15 (-0.64/+0.34) {'arc': 51.41, 'hellaswag': 68.65, 'winogrande': 80.25}  [{"op": "head", "layer": 23, "head": 11, "s": 0}]
+ -0.08 (-0.47/+0.32) {'arc': 51.62, 'hellaswag': 68.85, 'winogrande': 80.05}  [{"op": "head", "layer": 25, "head": 11, "s": 0}]
+ +0.18 (-0.16/+0.52) {'arc': 51.55, 'hellaswag': 68.85, 'winogrande': 80.9}  [{"op": "head", "layer": 25, "head": 12, "s": 0}]
+ +0.14 (-0.19/+0.47) {'arc': 51.48, 'hellaswag': 68.75, 'winogrande': 80.95}  [{"op": "head", "layer": 16, "head": 6, "s": 0}, {"op": "head", "layer": 21, "head": 2, "s": 0}, {"op": "head", "layer": 23, "head": 5, "s": 0}]
+ +0.04 (-0.39/+0.46) {'arc': 51.62, 'hellaswag': 68.9, 'winogrande': 80.35}  [{"op": "head", "layer": 23, "head": 11, "s": 0}, {"op": "head", "layer": 25, "head": 11, "s": 0}, {"op": "head", "layer": 25, "head": 12, "s": 0}]
+ -0.07 (-0.67/+0.53) {'arc': 51.55, 'hellaswag': 68.9, 'winogrande': 80.1}  [{"op": "head", "layer": 16, "head": 6, "s": 0}, {"op": "head", "layer": 21, "head": 2, "s": 0}, {"op": "head", "layer": 23, "head": 5, "s": 0}, {"op": "head", "layer": 23, "head": 11, "s": 0}, {"op": "head", "layer": 25, "head": 11, "s": 0}, {"op": "head", "layer": 25, "head": 12, "s": 0}]
+ -0.26 (-0.76/+0.24) {'arc': 50.99, 'hellaswag': 68.9, 'winogrande': 80.1}  [{"op": "lowrank", "layer": 23, "mat": "down", "keep": 0.8}]
+nothing accepted, best was +0.18 [{"op": "head", "layer": 25, "head": 12, "s": 0}]  | evals used 164/300

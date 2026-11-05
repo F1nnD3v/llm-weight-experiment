@@ -1,0 +1,115 @@
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (298938 > 131072). Running this sequence through the model will result in indexing errors
+{
+ "accepted": [
+  {
+   "op": "temp",
+   "s": 0.8
+  },
+  {
+   "op": "merge",
+   "alpha": 0.5,
+   "part": "mlp"
+  },
+  {
+   "op": "head",
+   "layer": 15,
+   "head": 8,
+   "s": 0
+  },
+  {
+   "op": "head",
+   "layer": 3,
+   "head": 9,
+   "s": 0
+  },
+  {
+   "op": "head",
+   "layer": 12,
+   "head": 10,
+   "s": 0
+  },
+  {
+   "op": "lowrank",
+   "layer": 20,
+   "mat": "down",
+   "keep": 0.8
+  },
+  {
+   "op": "head",
+   "layer": 16,
+   "head": 1,
+   "s": 0
+  },
+  {
+   "op": "head",
+   "layer": 20,
+   "head": 3,
+   "s": 0
+  },
+  {
+   "op": "head",
+   "layer": 2,
+   "head": 7,
+   "s": 0
+  },
+  {
+   "op": "head",
+   "layer": 24,
+   "head": 3,
+   "s": 0
+  },
+  {
+   "op": "head",
+   "layer": 5,
+   "head": 10,
+   "s": 0
+  },
+  {
+   "op": "head",
+   "layer": 14,
+   "head": 4,
+   "s": 0
+  },
+  {
+   "op": "head",
+   "layer": 21,
+   "head": 13,
+   "s": 0
+  },
+  {
+   "op": "head",
+   "layer": 23,
+   "head": 14,
+   "s": 0
+  }
+ ],
+ "test_delta": 1.973,
+ "ci95": [
+  0.962,
+  2.952
+ ],
+ "label": "win",
+ "overfit_dev": false,
+ "baseline": {
+  "objective": 58.383,
+  "arc": 44.71,
+  "hellaswag": 66.35,
+  "winogrande": 64.09,
+  "arc_easy": 68.56,
+  "piqa": 75.52,
+  "wikitext_ppl": 10.322
+ },
+ "edited": {
+  "objective": 60.357,
+  "arc": 50.17,
+  "hellaswag": 66.97,
+  "winogrande": 63.93,
+  "arc_easy": 75.0,
+  "piqa": 74.81,
+  "wikitext_ppl": 13.781
+ },
+ "dev": {
+  "baseline": 64.06431593794076,
+  "edited": 66.92
+ }
+}

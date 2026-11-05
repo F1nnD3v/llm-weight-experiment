@@ -1,0 +1,18 @@
+current dev 65.91 {'arc': 49.44, 'hellaswag': 68.35, 'winogrande': 79.95}
+ -0.43 (-0.40/-0.47) {'arc': 48.24, 'hellaswag': 68.3, 'winogrande': 79.9}  [{"op": "head", "layer": 0, "head": 3, "s": 1.25}]
+ +0.09 (+0.01/+0.17) {'arc': 49.29, 'hellaswag': 68.55, 'winogrande': 80.15}  [{"op": "head", "layer": 11, "head": 2, "s": 1.25}]
+ +0.13 (+0.18/+0.07) {'arc': 49.01, 'hellaswag': 68.6, 'winogrande': 80.5}  [{"op": "head", "layer": 1, "head": 5, "s": 1.25}]
+ -0.11 (-0.29/+0.08) {'arc': 49.37, 'hellaswag': 68.3, 'winogrande': 79.75}  [{"op": "head", "layer": 13, "head": 7, "s": 1.25}]
+ -0.09 (+0.19/-0.37) {'arc': 49.15, 'hellaswag': 68.2, 'winogrande': 80.1}  [{"op": "head", "layer": 10, "head": 7, "s": 1.25}]
+ +0.06 (-0.06/+0.18) {'arc': 48.66, 'hellaswag': 68.2, 'winogrande': 81.05}  [{"op": "head", "layer": 0, "head": 3, "s": 1.5}]
+ -0.40 (-0.46/-0.35) {'arc': 49.22, 'hellaswag': 67.8, 'winogrande': 79.5}  [{"op": "head", "layer": 11, "head": 2, "s": 1.5}]
+ -0.16 (-0.02/-0.30) {'arc': 49.15, 'hellaswag': 68.15, 'winogrande': 79.95}  [{"op": "merge", "alpha": 0.25, "part": "norm"}]
+ -0.07 (+0.05/-0.19) {'arc': 49.22, 'hellaswag': 68.3, 'winogrande': 80.0}  [{"op": "merge", "alpha": 0.5, "part": "norm"}]
+ -0.26 (-0.34/-0.17) {'arc': 48.87, 'hellaswag': 67.9, 'winogrande': 80.2}  [{"op": "merge", "alpha": 1.0, "part": "norm"}]
+ -0.09 (+0.20/-0.38) {'arc': 49.37, 'hellaswag': 68.05, 'winogrande': 80.05}  [{"op": "merge", "alpha": 0.25, "layers": [-1, -1], "embed": true}]
+ -1.85 (-1.75/-1.94) {'arc': 47.74, 'hellaswag': 64.85, 'winogrande': 79.6}  [{"op": "lowrank", "layer": 27, "mat": "up", "keep": 0.8}]
+ -0.01 (+0.01/-0.02) {'arc': 49.37, 'hellaswag': 68.15, 'winogrande': 80.2}  [{"op": "lowrank", "layer": 24, "mat": "up", "keep": 0.8}]
+ +0.30 (+0.56/+0.05) {'arc': 49.65, 'hellaswag': 68.55, 'winogrande': 80.45}  [{"op": "lowrank", "layer": 20, "mat": "down", "keep": 0.8}]
+ -0.05 (+0.08/-0.18) {'arc': 49.44, 'hellaswag': 68.15, 'winogrande': 80.0}  [{"op": "lowrank", "layer": 27, "mat": "o", "keep": 0.5}]
+ -0.46 (-0.41/-0.50) {'arc': 49.01, 'hellaswag': 67.95, 'winogrande': 79.4}  [{"op": "lowrank", "layer": 27, "mat": "v", "keep": 0.5}]
+ACCEPT +0.30 [{"op": "lowrank", "layer": 20, "mat": "down", "keep": 0.8}]  | evals used 109/300

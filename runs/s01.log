@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "C:\Users\admin\Documents\LLM Weight Experiment\lab.py", line 364, in <module>
+    {"smoke": cmd_smoke, "round": cmd_round, "screen": cmd_screen, "final": cmd_final}[sys.argv[1]](*sys.argv[2:])
+  File "C:\Users\admin\Documents\LLM Weight Experiment\lab.py", line 329, in cmd_screen
+    r = lab.score(dev, enc)
+        ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\Documents\LLM Weight Experiment\lab.py", line 190, in score
+    lp = self.logprobs(encs[b]).tolist()
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\Documents\LLM Weight Experiment\.venv\Lib\site-packages\torch\utils\_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\admin\Documents\LLM Weight Experiment\lab.py", line 180, in logprobs
+    h = h[torch.tensor(rows, device="cuda"), torch.tensor(cols, device="cuda")]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+The CUDA driver logged these messages, which may provide useful details:
+Sticky error detected
+Returning 999 (CUDA_ERROR_UNKNOWN) from cuStreamIsCapturing
+
+

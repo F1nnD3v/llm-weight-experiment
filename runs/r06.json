@@ -1,0 +1,98 @@
+[
+{
+"op": "head",
+"layer": 0,
+"head": 3,
+"s": 1.25
+},
+{
+"op": "head",
+"layer": 11,
+"head": 2,
+"s": 1.25
+},
+{
+"op": "head",
+"layer": 1,
+"head": 5,
+"s": 1.25
+},
+{
+"op": "head",
+"layer": 13,
+"head": 7,
+"s": 1.25
+},
+{
+"op": "head",
+"layer": 10,
+"head": 7,
+"s": 1.25
+},
+{
+"op": "head",
+"layer": 0,
+"head": 3,
+"s": 1.5
+},
+{
+"op": "head",
+"layer": 11,
+"head": 2,
+"s": 1.5
+},
+{
+"op": "merge",
+"alpha": 0.25,
+"part": "norm"
+},
+{
+"op": "merge",
+"alpha": 0.5,
+"part": "norm"
+},
+{
+"op": "merge",
+"alpha": 1.0,
+"part": "norm"
+},
+{
+"op": "merge",
+"alpha": 0.25,
+"layers": [
+-1,
+-1
+],
+"embed": true
+},
+{
+"op": "lowrank",
+"layer": 27,
+"mat": "up",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 24,
+"mat": "up",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 20,
+"mat": "down",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 27,
+"mat": "o",
+"keep": 0.5
+},
+{
+"op": "lowrank",
+"layer": 27,
+"mat": "v",
+"keep": 0.5
+}
+]

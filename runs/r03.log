@@ -1,0 +1,14 @@
+current dev 64.97 {'arc': 47.46, 'hellaswag': 67.65, 'winogrande': 79.8}
+ -0.03 (+0.05/-0.10) {'arc': 47.53, 'hellaswag': 67.6, 'winogrande': 79.7}  [{"op": "merge", "alpha": 0.2, "part": "mlp"}]
+ -0.17 (-0.12/-0.22) {'arc': 48.1, 'hellaswag': 67.3, 'winogrande': 79.0}  [{"op": "merge", "alpha": 0.4, "part": "mlp"}]
+ -0.40 (-0.41/-0.39) {'arc': 46.97, 'hellaswag': 67.6, 'winogrande': 79.15}  [{"op": "merge", "alpha": -0.2, "part": "mlp"}]
+ +0.07 (+0.25/-0.11) {'arc': 48.17, 'hellaswag': 67.0, 'winogrande': 79.95}  [{"op": "merge", "alpha": 0.4, "part": "mlp", "layers": [0, 13]}]
+ -0.20 (-0.29/-0.12) {'arc': 47.6, 'hellaswag': 67.2, 'winogrande': 79.5}  [{"op": "merge", "alpha": 0.4, "part": "mlp", "layers": [14, 27]}]
+ -0.39 (-0.14/-0.65) {'arc': 47.18, 'hellaswag': 67.4, 'winogrande': 79.15}  [{"op": "merge", "alpha": 0.25, "part": "attn"}]
+ -0.22 (-0.13/-0.31) {'arc': 47.74, 'hellaswag': 67.65, 'winogrande': 78.85}  [{"op": "merge", "alpha": 0.5, "part": "attn", "layers": [0, 13]}]
+ -0.02 (+0.24/-0.27) {'arc': 47.46, 'hellaswag': 67.45, 'winogrande': 79.95}  [{"op": "merge", "alpha": 0.5, "part": "attn", "layers": [14, 27]}]
+ +0.07 (+0.18/-0.03) {'arc': 47.53, 'hellaswag': 67.3, 'winogrande': 80.3}  [{"op": "temp", "s": 0.95}]
+ -0.07 (-0.15/+0.02) {'arc': 47.46, 'hellaswag': 67.75, 'winogrande': 79.5}  [{"op": "temp", "s": 1.05}]
+ +0.05 (+0.16/-0.06) {'arc': 47.46, 'hellaswag': 67.55, 'winogrande': 80.05}  [{"op": "scale", "layer": 27, "part": "attn", "s": 0.8}]
+ -0.05 (-0.37/+0.27) {'arc': 47.67, 'hellaswag': 67.4, 'winogrande': 79.7}  [{"op": "scale", "layer": 27, "part": "mlp", "s": 1.1}]
+nothing accepted, best was +0.07 [{"op": "temp", "s": 0.95}]  | evals used 59/300

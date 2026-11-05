@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dashboard",
+      "runtimeExecutable": "py",
+      "runtimeArgs": ["-3.12", "-m", "http.server", "8765", "--bind", "127.0.0.1", "--directory", "C:\\Users\\admin\\Documents\\LLM Weight Experiment\\runs"],
+      "port": 8765
+    }
+  ]
+}

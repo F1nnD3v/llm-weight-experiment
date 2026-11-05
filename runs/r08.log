@@ -1,0 +1,13 @@
+current dev 66.22 {'arc': 49.65, 'hellaswag': 68.55, 'winogrande': 80.45}
+ +0.01 (-0.37/+0.40) {'arc': 50.14, 'hellaswag': 68.4, 'winogrande': 80.15}  [{"op": "head", "layer": 16, "head": 1, "s": 0}]
+ -0.12 (-0.32/+0.08) {'arc': 49.79, 'hellaswag': 68.5, 'winogrande': 80.0}  [{"op": "head", "layer": 20, "head": 3, "s": 0}]
+ +0.20 (-0.03/+0.42) {'arc': 50.14, 'hellaswag': 68.45, 'winogrande': 80.65}  [{"op": "head", "layer": 2, "head": 7, "s": 0}]
+ -0.12 (-0.39/+0.16) {'arc': 49.65, 'hellaswag': 68.35, 'winogrande': 80.3}  [{"op": "head", "layer": 24, "head": 3, "s": 0}]
+ +0.03 (-0.34/+0.41) {'arc': 50.85, 'hellaswag': 68.6, 'winogrande': 79.3}  [{"op": "head", "layer": 5, "head": 10, "s": 0}]
+ -0.18 (-0.55/+0.19) {'arc': 49.86, 'hellaswag': 68.45, 'winogrande': 79.8}  [{"op": "head", "layer": 10, "head": 11, "s": 0}]
+ -0.20 (-0.39/+0.00) {'arc': 49.86, 'hellaswag': 68.3, 'winogrande': 79.9}  [{"op": "head", "layer": 0, "head": 14, "s": 0}]
+ -0.29 (-0.63/+0.05) {'arc': 49.44, 'hellaswag': 68.8, 'winogrande': 79.55}  [{"op": "head", "layer": 2, "head": 1, "s": 0}]
+ -0.15 (-0.48/+0.19) {'arc': 49.51, 'hellaswag': 68.45, 'winogrande': 80.25}  [{"op": "head", "layer": 16, "head": 1, "s": 0}, {"op": "head", "layer": 20, "head": 3, "s": 0}]
+ +0.26 (+0.19/+0.34) {'arc': 50.28, 'hellaswag': 68.35, 'winogrande': 80.8}  [{"op": "head", "layer": 16, "head": 1, "s": 0}, {"op": "head", "layer": 20, "head": 3, "s": 0}, {"op": "head", "layer": 2, "head": 7, "s": 0}]
+ +0.33 (+0.09/+0.57) {'arc': 50.63, 'hellaswag': 68.7, 'winogrande': 80.3}  [{"op": "head", "layer": 16, "head": 1, "s": 0}, {"op": "head", "layer": 20, "head": 3, "s": 0}, {"op": "head", "layer": 2, "head": 7, "s": 0}, {"op": "head", "layer": 24, "head": 3, "s": 0}, {"op": "head", "layer": 5, "head": 10, "s": 0}]
+ACCEPT +0.33 [{"op": "head", "layer": 16, "head": 1, "s": 0}, {"op": "head", "layer": 20, "head": 3, "s": 0}, {"op": "head", "layer": 2, "head": 7, "s": 0}, {"op": "head", "layer": 24, "head": 3, "s": 0}, {"op": "head", "layer": 5, "head": 10, "s": 0}]  | evals used 134/300

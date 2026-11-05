@@ -1,0 +1,16 @@
+current dev 66.22 {'arc': 49.65, 'hellaswag': 68.55, 'winogrande': 80.45}
+ -0.38 (-0.54/-0.23) {'arc': 49.29, 'hellaswag': 68.35, 'winogrande': 79.85}  [{"op": "lowrank", "layer": 14, "mat": "down", "keep": 0.8}]
+ -0.29 (-0.44/-0.13) {'arc': 49.79, 'hellaswag': 68.9, 'winogrande': 79.1}  [{"op": "lowrank", "layer": 16, "mat": "down", "keep": 0.8}]
+ -0.08 (-0.31/+0.14) {'arc': 49.51, 'hellaswag': 68.7, 'winogrande': 80.2}  [{"op": "lowrank", "layer": 17, "mat": "down", "keep": 0.8}]
+ +0.01 (-0.35/+0.36) {'arc': 49.72, 'hellaswag': 68.25, 'winogrande': 80.7}  [{"op": "lowrank", "layer": 18, "mat": "down", "keep": 0.8}]
+ -0.15 (-0.42/+0.11) {'arc': 49.44, 'hellaswag': 69.0, 'winogrande': 79.75}  [{"op": "lowrank", "layer": 19, "mat": "down", "keep": 0.8}]
+ -0.24 (-0.37/-0.12) {'arc': 49.37, 'hellaswag': 68.3, 'winogrande': 80.25}  [{"op": "lowrank", "layer": 21, "mat": "down", "keep": 0.8}]
+ -0.16 (-0.05/-0.27) {'arc': 49.51, 'hellaswag': 68.55, 'winogrande': 80.1}  [{"op": "lowrank", "layer": 22, "mat": "down", "keep": 0.8}]
+ -0.00 (-0.21/+0.20) {'arc': 49.44, 'hellaswag': 68.95, 'winogrande': 80.25}  [{"op": "lowrank", "layer": 23, "mat": "down", "keep": 0.8}]
+ -0.34 (-0.33/-0.35) {'arc': 49.58, 'hellaswag': 68.2, 'winogrande': 79.85}  [{"op": "lowrank", "layer": 25, "mat": "down", "keep": 0.8}]
+ +0.07 (-0.13/+0.28) {'arc': 49.72, 'hellaswag': 68.85, 'winogrande': 80.3}  [{"op": "lowrank", "layer": 20, "mat": "down", "keep": 0.7}]
+ -0.47 (-0.50/-0.43) {'arc': 48.94, 'hellaswag': 68.2, 'winogrande': 80.1}  [{"op": "lowrank", "layer": 20, "mat": "down", "keep": 0.6}]
+ -0.25 (-0.31/-0.18) {'arc': 49.51, 'hellaswag': 68.25, 'winogrande': 80.15}  [{"op": "lowrank", "layer": 16, "mat": "up", "keep": 0.8}]
+ -0.20 (-0.11/-0.30) {'arc': 49.79, 'hellaswag': 68.0, 'winogrande': 80.25}  [{"op": "lowrank", "layer": 20, "mat": "up", "keep": 0.8}]
+ -0.44 (-0.50/-0.38) {'arc': 49.58, 'hellaswag': 68.4, 'winogrande': 79.35}  [{"op": "lowrank", "layer": 20, "mat": "gate", "keep": 0.8}]
+nothing accepted, best was +0.07 [{"op": "lowrank", "layer": 20, "mat": "down", "keep": 0.7}]  | evals used 123/300

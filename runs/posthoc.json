@@ -1,0 +1,57 @@
+{
+ "n_items": 2821,
+ "wikitext_ppl": {
+  "baseline": 10.322,
+  "edited": 13.781,
+  "edited_temperature_undone": 12.635
+ },
+ "arc_easy": {
+  "baseline": 66.36,
+  "edited": 72.0,
+  "ci95": [
+   4.36,
+   6.95
+  ]
+ },
+ "easy_raw": {
+  "baseline": 72.92,
+  "edited": 75.47,
+  "ci95": [
+   1.38,
+   3.72
+  ]
+ },
+ "easy_letters": {
+  "baseline": 91.24,
+  "edited": 90.64,
+  "ci95": [
+   -1.31,
+   0.11
+  ]
+ },
+ "arc": {
+  "baseline": 44.99,
+  "edited": 51.41,
+  "ci95": [
+   4.58,
+   8.32
+  ]
+ },
+ "hard_raw": {
+  "baseline": 41.82,
+  "edited": 47.6,
+  "ci95": [
+   3.95,
+   7.62
+  ]
+ },
+ "hard_letters": {
+  "baseline": 80.61,
+  "edited": 80.75,
+  "ci95": [
+   -1.27,
+   1.62
+  ]
+ },
+ "saved_model_matches": true
+}

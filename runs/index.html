@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weight surgery live</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+  --accent: #2a78d6; --accent-wash: rgba(42,120,214,0.10); --good: #006300; --dot: #898781;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+    --accent: #3987e5; --accent-wash: rgba(57,135,229,0.12); --good: #0ca30c; --dot: #898781;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+  --accent: #3987e5; --accent-wash: rgba(57,135,229,0.12); --good: #0ca30c; --dot: #898781;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 20px; font-weight: 600; margin: 0 0 4px; }
+h2 { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
+.sub { color: var(--ink-2); margin: 0 0 12px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-top: 16px; }
+.status { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-top: 12px; }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); }
+.pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: p 1.4s ease-in-out infinite; }
+.pulse.idle { background: var(--muted); animation: none; }
+@keyframes p { 50% { opacity: .25; } }
+code, .mono { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12.5px; }
+.tiles { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 16px; }
+.tile .label { color: var(--ink-2); }
+.tile .value { font-size: 26px; font-weight: 600; }
+.tile.hero .value { font-size: 52px; line-height: 1.05; }
+.delta { font-weight: 600; }
+.up { color: var(--good); }
+.down { color: var(--ink-2); }
+.meter { height: 6px; border-radius: 3px; background: var(--accent-wash); margin-top: 8px; overflow: hidden; }
+.meter > div { height: 100%; background: var(--accent); border-radius: 3px; }
+.bench { margin-top: 6px; color: var(--ink-2); }
+.bench span { white-space: nowrap; margin-right: 12px; }
+.bench b { color: var(--ink); font-weight: 600; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.legend { display: flex; gap: 16px; color: var(--ink-2); margin: 4px 0 8px; font-size: 13px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+th { color: var(--ink-2); font-weight: 500; }
+td.num, th.num { text-align: right; }
+#postTable td:first-child { white-space: normal; }
+tr.acc td { background: var(--accent-wash); }
+.scroll { overflow-x: auto; }
+.tip { position: fixed; pointer-events: none; background: var(--surface); color: var(--ink); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 10px; box-shadow: 0 4px 16px rgba(0,0,0,.12); font-size: 13px; display: none; max-width: 340px; z-index: 9; }
+.tip .t { font-weight: 600; margin-bottom: 2px; }
+.foot { color: var(--muted); margin-top: 16px; font-size: 13px; }
+.err { color: var(--ink-2); }
+@media (max-width: 760px) { .tiles { grid-template-columns: 1fr 1fr; } .tile.hero { grid-column: 1 / -1; } .two { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Weight surgery on Qwen3-1.7B-Base</h1>
+  <p class="sub">Direct weight edits, no training. Every edit is judged on the dev split; the test split stays sealed until the end.</p>
+  <div class="status" id="status"></div>
+
+  <div class="card" id="finalCard" style="display:none">
+    <h2>Test split result</h2>
+    <p class="sub" id="finalLine"></p>
+    <div class="scroll"><table id="finalTable"></table></div>
+    <div id="postWrap" style="display:none;margin-top:16px">
+      <h2>Same questions, asked differently</h2>
+      <p class="sub">Exploratory, not pre-registered. Change from baseline to edited, with 95% interval. Lettered means the model picks A, B, C or D.</p>
+      <div class="scroll"><table id="postTable"></table></div>
+    </div>
+  </div>
+
+  <div class="tiles" style="margin-top:16px">
+    <div class="card tile hero" style="margin-top:0">
+      <div class="label">Best dev score so far</div>
+      <div class="value" id="best">–</div>
+      <div id="bestDelta"></div>
+      <div class="bench" id="bench"></div>
+    </div>
+    <div class="card tile" style="margin-top:0"><div class="label">Baseline dev</div><div class="value" id="base">–</div><div class="sub" style="margin:0">mean of 3 accuracies</div></div>
+    <div class="card tile" style="margin-top:0"><div class="label">Candidates tried</div><div class="value" id="evals">–</div><div class="meter"><div id="meter" style="width:0"></div></div></div>
+    <div class="card tile" style="margin-top:0"><div class="label">Edits kept</div><div class="value" id="kept">–</div><div class="sub" style="margin:0" id="dry"></div></div>
+  </div>
+
+  <div class="two">
+    <div class="card">
+      <h2>Best dev score so far</h2>
+      <p class="sub">Steps up when a round keeps an edit.</p>
+      <svg id="lineChart" viewBox="0 0 520 240" role="img" aria-label="Best dev score by candidates tried"></svg>
+    </div>
+    <div class="card">
+      <h2>Every candidate</h2>
+      <p class="sub">Gain over the model it was tried on, in points. Kept only above the bar and on both dev halves.</p>
+      <div class="legend"><span><i style="background:var(--accent)"></i>kept</span><span><i style="background:var(--dot)"></i>tried</span></div>
+      <svg id="dotChart" viewBox="0 0 520 240" role="img" aria-label="Gain of each candidate edit"></svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>By edit type</h2>
+    <div class="scroll"><table id="families"></table></div>
+  </div>
+
+  <div class="card" id="screenCard" style="display:none">
+    <h2>Quick screens</h2>
+    <p class="sub">Each candidate scored on a fixed 900-item slice of dev. Not counted in the budget; the best go into a full round.</p>
+    <div class="scroll"><table id="screens"></table></div>
+  </div>
+
+  <div class="card">
+    <h2>All candidates, newest first</h2>
+    <div class="scroll"><table id="rows"></table></div>
+  </div>
+
+  <p class="foot">Reads <code>log.jsonl</code>, <code>rounds.jsonl</code>, <code>state.json</code> and <code>progress.json</code> from this folder every 3 s. Rules: <code>PREREGISTRATION.md</code>.</p>
+</main>
+<div class="tip" id="tip"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const ACCEPT = 0.3, BUDGET = 300;
+let prog = null, last = "";
+
+const r2 = x => (Math.round(x * 100) / 100).toFixed(2);
+const sgn = x => (x > 0 ? "+" : x < 0 ? "−" : "±") + r2(Math.abs(x));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function fmtOne(e) {
+  switch (e.op) {
+    case "temp": return `temperature ×${e.s}`;
+    case "scale": return `L${e.layer} ${e.part} out ×${e.s}`;
+    case "head": return `L${e.layer} head ${e.head} ×${e.s}`;
+    case "lowrank": return `L${e.layer} ${e.mat} rank ${Math.round(e.keep * 100)}%`;
+    case "merge": return `merge α=${e.alpha}` + (e.part ? ` ${e.part}` : "") + (e.layers ? ` L${e.layers[0]}–${e.layers[1]}` : "") + (e.embed ? " +embed" : "");
+    case "drop": return `drop L${e.layer}`;
+    case "dup": return `repeat L${e.layer}`;
+    default: return JSON.stringify(e);
+  }
+}
+function fmt(edits) {
+  if (edits.length > 1 && edits.every(e => e.op === "scale" && e.part === edits[0].part && e.s === edits[0].s))
+    return edits.length === 28 ? `all ${edits[0].part} out ×${edits[0].s}` : `${edits.length} layers ${edits[0].part} ×${edits[0].s}`;
+  return edits.map(fmtOne).join(" + ");
+}
+const family = edits => edits.length > 1 && edits.every(e => e.op === edits[0].op) ? edits[0].op + " (many layers)" : edits.map(e => e.op).join("+");
+
+async function get(name, json) {
+  const r = await fetch(name + "?_=" + Date.now(), { cache: "no-store" });
+  if (!r.ok) return null;
+  const t = await r.text();
+  return json ? JSON.parse(t) : t;
+}
+const lines = t => (t || "").split("\n").filter(Boolean).map(l => JSON.parse(l));
+
+function el(tag, attrs, parent) {
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function ticks(lo, hi, n) {
+  const step = Math.pow(10, Math.floor(Math.log10((hi - lo) / n)));
+  const s = [1, 2, 5, 10].map(m => m * step).find(m => (hi - lo) / m <= n) || step * 10;
+  const out = [];
+  for (let v = Math.ceil(lo / s) * s; v <= hi + 1e-9; v += s) out.push(+v.toFixed(6));
+  return out;
+}
+function frame(svg, xMax, yLo, yHi, yFmt) {
+  svg.innerHTML = "";
+  const W = 520, H = 240, L = 40, R = 12, T = 20, B = 26;
+  const x = v => L + (W - L - R) * v / Math.max(1, xMax);
+  const y = v => T + (H - T - B) * (1 - (v - yLo) / (yHi - yLo));
+  for (const v of ticks(yLo, yHi, 5)) {
+    el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: "var(--grid)", "stroke-width": 1 }, svg);
+    el("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" }, svg).textContent = yFmt(v);
+  }
+  for (const v of ticks(0, Math.max(1, xMax), 6)) {
+    el("text", { x: x(v), y: H - 8, "text-anchor": "middle" }, svg).textContent = v;
+  }
+  el("line", { x1: L, x2: W - R, y1: H - B, y2: H - B, stroke: "var(--axis)", "stroke-width": 1 }, svg);
+  return { x, y, W, H, L, R, T, B };
+}
+function tip(evt, html) {
+  const t = $("tip");
+  if (!html) { t.style.display = "none"; return; }
+  t.innerHTML = html; t.style.display = "block";
+  const px = Math.min(evt.clientX + 14, innerWidth - t.offsetWidth - 8);
+  t.style.left = px + "px"; t.style.top = (evt.clientY + 14) + "px";
+}
+const benchHtml = b => b ? `<span>ARC-C <b>${r2(b.arc)}</b></span> <span>HellaSwag <b>${r2(b.hellaswag)}</b></span> <span>Winogrande <b>${r2(b.winogrande)}</b></span>` : "";
+
+function drawLine(rounds, base, n) {
+  const svg = $("lineChart");
+  const pts = [[0, base]];
+  let cur = base;
+  for (const r of rounds) { if (r.accepted) cur = r.dev_after; pts.push([r.evals, cur]); }
+  if (n > pts[pts.length - 1][0]) pts.push([n, cur]);
+  const ys = pts.map(p => p[1]);
+  const lo = Math.floor(Math.min(...ys) - 0.5), hi = Math.ceil(Math.max(...ys) + 0.5);
+  const f = frame(svg, Math.max(n, 10), lo, hi, v => Number.isInteger(v) ? String(v) : v.toFixed(1));
+  let d = `M${f.x(pts[0][0])},${f.y(pts[0][1])}`;
+  for (let i = 1; i < pts.length; i++) d += `H${f.x(pts[i][0])}V${f.y(pts[i][1])}`;
+  el("path", { d: d + `V${f.H - f.B}H${f.x(0)}Z`, fill: "var(--accent-wash)" }, svg);
+  el("path", { d, fill: "none", stroke: "var(--accent)", "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
+  el("line", { x1: f.L, x2: f.W - f.R, y1: f.y(base), y2: f.y(base), stroke: "var(--ink-2)", "stroke-width": 1, opacity: .5 }, svg);
+  el("text", { x: f.W - f.R, y: f.y(base) + 14, "text-anchor": "end" }, svg).textContent = "baseline " + r2(base);
+  const end = pts[pts.length - 1];
+  el("circle", { cx: f.x(end[0]), cy: f.y(end[1]), r: 4, fill: "var(--accent)", stroke: "var(--surface)", "stroke-width": 2 }, svg);
+  el("text", { x: f.x(end[0]) - 8, y: f.y(end[1]) - 10, "text-anchor": "end", style: "fill:var(--ink);font-weight:600" }, svg).textContent = r2(end[1]);
+  const cross = el("line", { y1: f.T, y2: f.H - f.B, stroke: "var(--axis)", "stroke-width": 1, opacity: 0 }, svg);
+  const hit = el("rect", { x: f.L, y: f.T, width: f.W - f.L - f.R, height: f.H - f.T - f.B, fill: "transparent" }, svg);
+  hit.addEventListener("mousemove", e => {
+    const box = svg.getBoundingClientRect();
+    const vx = (e.clientX - box.left) / box.width * f.W;
+    const k = Math.max(0, Math.round((vx - f.L) / (f.W - f.L - f.R) * Math.max(n, 10)));
+    let v = base; for (const p of pts) if (p[0] <= k) v = p[1];
+    cross.setAttribute("x1", f.x(k)); cross.setAttribute("x2", f.x(k)); cross.setAttribute("opacity", 1);
+    tip(e, `<div class="t">after ${k} candidates</div>best dev ${r2(v)} (${sgn(v - base)} vs baseline)`);
+  });
+  hit.addEventListener("mouseleave", e => { cross.setAttribute("opacity", 0); tip(e, null); });
+}
+
+function drawDots(rows, kept) {
+  const svg = $("dotChart");
+  const FLOOR = -3;
+  const ds = rows.map(r => r.delta);
+  const hi = Math.max(1, Math.ceil(Math.max(...ds, 0) * 2) / 2 + 0.5);
+  const f = frame(svg, Math.max(rows.length, 10), FLOOR, hi, v => (v > 0 ? "+" : "") + v);
+  el("line", { x1: f.L, x2: f.W - f.R, y1: f.y(0), y2: f.y(0), stroke: "var(--axis)", "stroke-width": 1 }, svg);
+  el("line", { x1: f.L, x2: f.W - f.R, y1: f.y(ACCEPT), y2: f.y(ACCEPT), stroke: "var(--accent)", "stroke-width": 1, opacity: .6 }, svg);
+  el("text", { x: f.L + 4, y: f.y(ACCEPT) - 5 }, svg).textContent = "keep bar +0.3";
+  let prev = null;
+  rows.forEach((r, i) => {
+    if (r.round !== prev) {
+      el("line", { x1: f.x(i + 0.5), x2: f.x(i + 0.5), y1: f.T, y2: f.H - f.B, stroke: "var(--grid)", "stroke-width": 1 }, svg);
+      el("text", { x: f.x(i + 0.5) + 4, y: f.T - 8 }, svg).textContent = r.round;
+      prev = r.round;
+    }
+  });
+  rows.forEach((r, i) => {
+    const isKept = kept.has(i);
+    const clipped = r.delta < FLOOR;
+    const cx = f.x(i + 1), cy = f.y(Math.max(FLOOR, r.delta));
+    const g = el("g", {}, svg);
+    if (clipped) el("path", { d: `M${cx - 4},${cy - 6}L${cx + 4},${cy - 6}L${cx},${cy}Z`, fill: "var(--dot)" }, g);
+    else el("circle", { cx, cy, r: isKept ? 5 : 4, fill: isKept ? "var(--accent)" : "var(--dot)", stroke: "var(--surface)", "stroke-width": 2 }, g);
+    if (isKept) el("text", { x: cx, y: cy - 10, "text-anchor": "middle", style: "fill:var(--ink)" }, g).textContent = fmt(r.edits);
+    el("circle", { cx, cy, r: 9, fill: "transparent" }, g).addEventListener("mousemove", e => tip(e,
+      `<div class="t">${esc(fmt(r.edits))}</div>${sgn(r.delta)} points${isKept ? " · <b>kept</b>" : ""}${clipped ? " (off the chart)" : ""}<br>halves ${sgn(r.d_even)} / ${sgn(r.d_odd)}<br>${benchHtml(r.bench)}`));
+    g.lastChild.addEventListener("mouseleave", e => tip(e, null));
+  });
+}
+
+function render(rows, rounds, state, base) {
+  const n = rows.length;
+  // the kept candidate of a round is its best one when the round accepted
+  const kept = new Set();
+  for (const rd of rounds) if (rd.accepted) {
+    const idx = rows.map((r, i) => [r, i]).filter(([r]) => r.round === rd.round).sort((a, b) => b[0].delta - a[0].delta)[0];
+    if (idx) kept.add(idx[1]);
+  }
+  const best = state ? (state.dev ?? base) : base;
+  $("best").textContent = r2(best);
+  $("bestDelta").innerHTML = `<span class="delta ${best - base > 0 ? "up" : "down"}">${sgn(best - base)}</span> <span class="sub">vs baseline on dev</span>`;
+  const lastKept = [...kept].pop();
+  $("bench").innerHTML = lastKept !== undefined ? benchHtml(rows[lastKept].bench) : "";
+  $("base").textContent = r2(base);
+  $("evals").textContent = `${state ? state.evals : n} / ${BUDGET}`;
+  $("meter").style.width = (100 * (state ? state.evals : n) / BUDGET) + "%";
+  $("kept").textContent = state ? state.accepted.length : 0;
+  $("dry").innerHTML = state && state.accepted.length ? state.accepted.map(e => esc(fmtOne(e))).join("<br>") : "none yet";
+
+  drawLine(rounds, base, n);
+  drawDots(rows, kept);
+
+  const fam = {};
+  rows.forEach(r => { const k = family(r.edits); (fam[k] = fam[k] || []).push(r.delta); });
+  $("families").innerHTML = `<tr><th>Edit type</th><th class="num">Tried</th><th class="num">Best gain</th><th class="num">Mean gain</th><th class="num">Above bar</th></tr>` +
+    Object.entries(fam).sort((a, b) => Math.max(...b[1]) - Math.max(...a[1])).map(([k, v]) =>
+      `<tr><td>${esc(k)}</td><td class="num">${v.length}</td><td class="num ${Math.max(...v) > 0 ? "up" : ""}">${sgn(Math.max(...v))}</td><td class="num">${sgn(v.reduce((a, b) => a + b, 0) / v.length)}</td><td class="num">${v.filter(d => d >= ACCEPT).length}</td></tr>`).join("");
+
+  $("rows").innerHTML = `<tr><th class="num">#</th><th>Round</th><th>Edit</th><th class="num">Gain</th><th class="num">Halves</th><th class="num">ARC-C</th><th class="num">HellaSwag</th><th class="num">Winogrande</th><th class="num">Secs</th></tr>` +
+    rows.map((r, i) => [r, i]).reverse().map(([r, i]) =>
+      `<tr class="${kept.has(i) ? "acc" : ""}"><td class="num">${i + 1}</td><td>${r.round}</td><td>${kept.has(i) ? "✓ kept · " : ""}${esc(fmt(r.edits))}</td>` +
+      `<td class="num ${r.delta > 0 ? "up" : ""}">${sgn(r.delta)}</td><td class="num">${sgn(r.d_even)} / ${sgn(r.d_odd)}</td>` +
+      `<td class="num">${r2(r.bench.arc)}</td><td class="num">${r2(r.bench.hellaswag)}</td><td class="num">${r2(r.bench.winogrande)}</td><td class="num">${r.secs}</td></tr>`).join("");
+}
+
+function renderFinal(f) {
+  $("finalCard").style.display = "";
+  $("finalLine").innerHTML = `<b>${f.label}</b>: ${sgn(f.test_delta)} points on the test objective, 95% interval ${sgn(f.ci95[0])} to ${sgn(f.ci95[1])}.` +
+    (f.overfit_dev ? " Dev rose by more than test confirmed, so the search overfit dev." : "");
+  const row = (name, k, lowerBetter) => {
+    const a = f.baseline[k], b = f.edited[k], d = b - a, good = lowerBetter ? d < 0 : d > 0;
+    return `<tr><td>${name}</td><td class="num">${r2(a)}</td><td class="num">${r2(b)}</td><td class="num ${good ? "up" : ""}">${sgn(d)}</td></tr>`;
+  };
+  $("finalTable").innerHTML = `<tr><th>Measure</th><th class="num">Baseline</th><th class="num">Edited</th><th class="num">Change</th></tr>` +
+    row("Objective, mean of 3", "objective") + row("ARC-Challenge", "arc") + row("HellaSwag", "hellaswag") + row("Winogrande", "winogrande") +
+    row("ARC-Easy, never searched", "arc_easy") + row("PIQA, never searched", "piqa") + row("WikiText perplexity, lower is better", "wikitext_ppl", true);
+}
+
+function renderPost(p) {
+  $("postWrap").style.display = "";
+  const row = (name, k) => p[k] ? `<tr><td>${name}</td><td class="num">${r2(p[k].baseline)}</td><td class="num">${r2(p[k].edited)}</td>` +
+    `<td class="num">${sgn(p[k].edited - p[k].baseline)}</td><td class="num">${sgn(p[k].ci95[0])} to ${sgn(p[k].ci95[1])}</td></tr>` : "";
+  const w = p.wikitext_ppl;
+  $("postTable").innerHTML = `<tr><th>Check</th><th class="num">Baseline</th><th class="num">Edited</th><th class="num">Change</th><th class="num">95% interval</th></tr>` +
+    row("ARC-Easy, normalized (benchmark scoring)", "arc_easy") + row("ARC-Easy, raw", "easy_raw") + row("ARC-Easy, lettered", "easy_letters") +
+    row("ARC-Challenge, normalized (searched items)", "arc") + row("ARC-Challenge, raw", "hard_raw") + row("ARC-Challenge, lettered", "hard_letters") +
+    `<tr><td>WikiText perplexity, temperature edit undone</td><td class="num">${r2(w.baseline)}</td><td class="num">${r2(w.edited_temperature_undone)}</td><td class="num">${sgn(w.edited_temperature_undone - w.baseline)}</td><td class="num">–</td></tr>`;
+}
+
+function renderScreens(sc) {
+  if (!sc.length) return;
+  $("screenCard").style.display = "";
+  const by = {};
+  sc.forEach(r => (by[r.screen] = by[r.screen] || []).push(r));
+  $("screens").innerHTML = Object.entries(by).map(([name, v]) => {
+    const top = [...v].sort((a, b) => b.delta - a.delta).slice(0, 10);
+    const above = v.filter(r => r.delta > 0).length;
+    return `<tr><th colspan="5">${esc(name)} · ${v.length} screened · ${above} above zero</th></tr>` +
+      `<tr><th>Edit</th><th class="num">Gain</th><th class="num">ARC-C</th><th class="num">HellaSwag</th><th class="num">Winogrande</th></tr>` +
+      top.map(r => `<tr><td>${esc(fmt(r.edits))}</td><td class="num ${r.delta > 0 ? "up" : ""}">${sgn(r.delta)}</td>` +
+        `<td class="num">${r2(r.bench.arc)}</td><td class="num">${r2(r.bench.hellaswag)}</td><td class="num">${r2(r.bench.winogrande)}</td></tr>`).join("");
+  }).join("");
+}
+
+function drawStatus() {
+  const s = $("status");
+  if (!prog) { s.innerHTML = `<span class="pill"><span class="pulse idle"></span>waiting for data</span>`; return; }
+  const secs = Math.max(0, Math.round(Date.now() / 1000 - prog.t));
+  const ago = secs < 90 ? `${secs}s` : `${Math.floor(secs / 60)}m ${secs % 60}s`;
+  const running = prog.phase !== "idle";
+  let what = running ? `round <b>${prog.round}</b> · ${prog.phase === "candidate" ? `candidate <b>${prog.i}</b> of ${prog.n}` : prog.phase}` :
+    prog.round === "final" ? "search finished, test scored" : `round <b>${prog.round}</b> done, next round being planned`;
+  s.innerHTML = `<span class="pill"><span class="pulse ${running ? "" : "idle"}"></span>${what}</span>` +
+    (running && prog.edits ? `<span class="mono">${esc(fmt(prog.edits))}</span>` : "") +
+    `<span class="sub" style="margin:0">${running ? "running for " : "idle for "}${ago}</span>`;
+}
+
+async function poll() {
+  try {
+    const [log, rds, st, pr, scr, fin, post] = await Promise.all([get("log.jsonl"), get("rounds.jsonl"), get("state.json"), get("progress.json"), get("screen.jsonl"), get("final.json"), get("posthoc.json")]);
+    try { if (pr) prog = JSON.parse(pr); } catch (_) { /* file mid-write, keep the last one */ }
+    try { if (fin) renderFinal(JSON.parse(fin)); if (post) renderPost(JSON.parse(post)); } catch (_) { /* file mid-write */ }
+    try { renderScreens(lines(scr)); } catch (_) { /* last line mid-write */ }
+    const key = (log || "").length + "|" + (rds || "").length + "|" + (st || "");
+    if (key !== last) {
+      const rows = lines(log), rounds = lines(rds), state = st ? JSON.parse(st) : null;
+      const base = state && state.baseline_dev != null ? state.baseline_dev : (rounds[0] ? rounds[0].start_dev : NaN);
+      if (rows.length) render(rows, rounds, state, base);
+      last = key;
+    }
+  } catch (e) { console.warn(e); }
+  drawStatus();
+}
+poll();
+setInterval(poll, 3000);
+setInterval(drawStatus, 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+[
+{
+"op": "lowrank",
+"layer": 14,
+"mat": "down",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 16,
+"mat": "down",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 17,
+"mat": "down",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 18,
+"mat": "down",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 19,
+"mat": "down",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 21,
+"mat": "down",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 22,
+"mat": "down",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 23,
+"mat": "down",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 25,
+"mat": "down",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 20,
+"mat": "down",
+"keep": 0.7
+},
+{
+"op": "lowrank",
+"layer": 20,
+"mat": "down",
+"keep": 0.6
+},
+{
+"op": "lowrank",
+"layer": 16,
+"mat": "up",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 20,
+"mat": "up",
+"keep": 0.8
+},
+{
+"op": "lowrank",
+"layer": 20,
+"mat": "gate",
+"keep": 0.8
+}
+]

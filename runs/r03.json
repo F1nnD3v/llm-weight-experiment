@@ -1,0 +1,78 @@
+[
+{
+"op": "merge",
+"alpha": 0.2,
+"part": "mlp"
+},
+{
+"op": "merge",
+"alpha": 0.4,
+"part": "mlp"
+},
+{
+"op": "merge",
+"alpha": -0.2,
+"part": "mlp"
+},
+{
+"op": "merge",
+"alpha": 0.4,
+"part": "mlp",
+"layers": [
+0,
+13
+]
+},
+{
+"op": "merge",
+"alpha": 0.4,
+"part": "mlp",
+"layers": [
+14,
+27
+]
+},
+{
+"op": "merge",
+"alpha": 0.25,
+"part": "attn"
+},
+{
+"op": "merge",
+"alpha": 0.5,
+"part": "attn",
+"layers": [
+0,
+13
+]
+},
+{
+"op": "merge",
+"alpha": 0.5,
+"part": "attn",
+"layers": [
+14,
+27
+]
+},
+{
+"op": "temp",
+"s": 0.95
+},
+{
+"op": "temp",
+"s": 1.05
+},
+{
+"op": "scale",
+"layer": 27,
+"part": "attn",
+"s": 0.8
+},
+{
+"op": "scale",
+"layer": 27,
+"part": "mlp",
+"s": 1.1
+}
+]

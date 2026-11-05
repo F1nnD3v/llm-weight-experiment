@@ -1,0 +1,17 @@
+current dev 66.92 {'arc': 51.41, 'hellaswag': 68.75, 'winogrande': 80.6}
+ +0.15 (-0.49/+0.79) {'arc': 51.76, 'hellaswag': 68.85, 'winogrande': 80.6}  [{"op": "head", "layer": 3, "head": 11, "s": 0}]
+ -0.07 (-0.42/+0.29) {'arc': 51.41, 'hellaswag': 68.45, 'winogrande': 80.7}  [{"op": "head", "layer": 3, "head": 13, "s": 0}]
+ -0.10 (-0.52/+0.31) {'arc': 51.2, 'hellaswag': 68.65, 'winogrande': 80.6}  [{"op": "head", "layer": 4, "head": 3, "s": 0}]
+ +0.03 (-0.44/+0.51) {'arc': 51.06, 'hellaswag': 68.5, 'winogrande': 81.3}  [{"op": "head", "layer": 6, "head": 13, "s": 0}]
+ -0.14 (-0.32/+0.04) {'arc': 50.99, 'hellaswag': 68.2, 'winogrande': 81.15}  [{"op": "head", "layer": 12, "head": 7, "s": 0}]
+ -0.08 (-0.30/+0.13) {'arc': 51.06, 'hellaswag': 68.75, 'winogrande': 80.7}  [{"op": "head", "layer": 14, "head": 6, "s": 0}]
+ -0.15 (-0.68/+0.38) {'arc': 51.06, 'hellaswag': 68.65, 'winogrande': 80.6}  [{"op": "head", "layer": 16, "head": 5, "s": 0}]
+ +0.03 (-0.35/+0.40) {'arc': 51.69, 'hellaswag': 68.65, 'winogrande': 80.5}  [{"op": "head", "layer": 16, "head": 10, "s": 0}]
+ -0.16 (-0.69/+0.37) {'arc': 51.48, 'hellaswag': 68.5, 'winogrande': 80.3}  [{"op": "head", "layer": 3, "head": 11, "s": 0}, {"op": "head", "layer": 3, "head": 13, "s": 0}, {"op": "head", "layer": 4, "head": 3, "s": 0}]
+ -0.33 (-0.71/+0.05) {'arc': 51.06, 'hellaswag': 68.05, 'winogrande': 80.65}  [{"op": "head", "layer": 6, "head": 13, "s": 0}, {"op": "head", "layer": 12, "head": 7, "s": 0}, {"op": "head", "layer": 14, "head": 6, "s": 0}]
+ -0.58 (-0.72/-0.43) {'arc': 50.28, 'hellaswag': 68.15, 'winogrande': 80.6}  [{"op": "head", "layer": 3, "head": 11, "s": 0}, {"op": "head", "layer": 3, "head": 13, "s": 0}, {"op": "head", "layer": 4, "head": 3, "s": 0}, {"op": "head", "layer": 6, "head": 13, "s": 0}, {"op": "head", "layer": 12, "head": 7, "s": 0}, {"op": "head", "layer": 14, "head": 6, "s": 0}, {"op": "head", "layer": 16, "head": 5, "s": 0}, {"op": "head", "layer": 16, "head": 10, "s": 0}]
+ +0.21 (-0.38/+0.81) {'arc': 51.55, 'hellaswag': 68.7, 'winogrande': 81.15}  [{"op": "head", "layer": 25, "head": 12, "s": 0}, {"op": "head", "layer": 16, "head": 6, "s": 0}]
+ -0.05 (-0.49/+0.38) {'arc': 51.55, 'hellaswag': 68.55, 'winogrande': 80.5}  [{"op": "merge", "alpha": 0.2, "part": "mlp", "layers": [0, 13]}]
+ -0.23 (-0.69/+0.23) {'arc': 51.13, 'hellaswag': 68.4, 'winogrande': 80.55}  [{"op": "merge", "alpha": 0.2, "part": "mlp", "layers": [14, 27]}]
+ -0.04 (-0.12/+0.04) {'arc': 51.69, 'hellaswag': 68.5, 'winogrande': 80.45}  [{"op": "merge", "alpha": 0.25, "part": "attn", "layers": [14, 27]}]
+nothing accepted, best was +0.21 [{"op": "head", "layer": 25, "head": 12, "s": 0}, {"op": "head", "layer": 16, "head": 6, "s": 0}]  | evals used 179/300

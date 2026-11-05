@@ -1,0 +1,114 @@
+[
+{
+"op": "head",
+"layer": 18,
+"head": 0,
+"s": 0
+},
+{
+"op": "head",
+"layer": 18,
+"head": 6,
+"s": 0
+},
+{
+"op": "head",
+"layer": 19,
+"head": 15,
+"s": 0
+},
+{
+"op": "head",
+"layer": 22,
+"head": 12,
+"s": 0
+},
+{
+"op": "head",
+"layer": 23,
+"head": 4,
+"s": 0
+},
+{
+"op": "head",
+"layer": 23,
+"head": 9,
+"s": 0
+},
+{
+"op": "head",
+"layer": 24,
+"head": 12,
+"s": 0
+},
+{
+"op": "head",
+"layer": 25,
+"head": 7,
+"s": 0
+},
+[
+{
+"op": "head",
+"layer": 18,
+"head": 0,
+"s": 0
+},
+{
+"op": "head",
+"layer": 18,
+"head": 6,
+"s": 0
+},
+{
+"op": "head",
+"layer": 19,
+"head": 15,
+"s": 0
+},
+{
+"op": "head",
+"layer": 22,
+"head": 12,
+"s": 0
+}
+],
+[
+{
+"op": "head",
+"layer": 25,
+"head": 12,
+"s": 0
+},
+{
+"op": "head",
+"layer": 16,
+"head": 6,
+"s": 0
+},
+{
+"op": "head",
+"layer": 3,
+"head": 11,
+"s": 0
+}
+],
+{
+"op": "scale",
+"layer": 12,
+"part": "mlp",
+"s": 1.1
+},
+{
+"op": "scale",
+"layer": 27,
+"part": "attn",
+"s": 0.8
+},
+{
+"op": "lowrank",
+"layer": 20,
+"mat": "down",
+"keep": 0.7
+}
+]
